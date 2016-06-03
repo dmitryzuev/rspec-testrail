@@ -35,7 +35,7 @@ module RSpec
           status = 1
           message = ''
         end
-        client.send_post("/add_result_for_case/#{testrun['id']}/#{example.metadata[:testrail_id]}",
+        client.send_post("add_result_for_case/#{testrun['id']}/#{example.metadata[:testrail_id]}",
                          status_id: status,
                          comment: message)
       end
@@ -45,18 +45,18 @@ module RSpec
       def testrun
         @testrun ||=
           if testruns.empty?
-            client.send_post("/add_run/#{@options[:project_id]}",
+            client.send_post("add_run/#{@options[:project_id]}",
                              suite_id: @options[:suite_id],
-                             name: "Test run for #{git_branch}",
-                             description: "Revision: #{git_revision}")
+                             name: "Test run for #{@options[:git_branch]}",
+                             description: "Revision: #{@options[:git_revision]}")
           else
-            client.send_post("/update_run/#{testruns[0]['id']}",
-                             description: "Revision: #{git_revision}")
+            client.send_post("update_run/#{testruns[0]['id']}",
+                             description: "Revision: #{@options[:git_revision]}")
           end
       end
 
       def testruns
-        @testruns ||= client.send_get("/get_runs/#{@options[:project_id]}")
+        @testruns ||= client.send_get("get_runs/#{@options[:project_id]}")
                             .select do |run|
                               run['suite_id'] == @options[:suite_id].to_i && \
                                 run['name'].include?(@options[:git_branch])

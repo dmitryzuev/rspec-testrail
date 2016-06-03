@@ -26,15 +26,17 @@ require 'rspec/testrail'
 
 RSpec.configure do |config|
 
-  config.before(:all) do
+  config.before :all do
     # Uncomment if you are using gem `webmock`
     # WebMock.allow_net_connect!
     RSpec::Testrail.init url: 'http://test.site',
                          user: 'test@test.site',
-                         password: ENV.fetch('TESTRAIL_PASSWORD', '12345678')
+                         password: ENV.fetch('TESTRAIL_PASSWORD', '12345678'),
+                         project_id: 228,
+                         suite_id: 1337
   end
 
-  config.after(:example), testrail_id: proc { |value| !value.nil? } do |example|
+  config.after :example, testrail_id: proc { |value| !value.nil? } do |example|
     # Uncomment if you are using gem `webmock`
     # WebMock.allow_net_connect!
     RSpec::Testrail.process(example)

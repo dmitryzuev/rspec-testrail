@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'rspec/testrail'
+require 'webmock/rspec'
 require 'pry'
 
 RSpec.configure do |config|
@@ -9,9 +10,5 @@ RSpec.configure do |config|
                          password: ENV.fetch('TESTRAIL_PASSWORD', '12345678'),
                          project_id: 228,
                          suite_id: 1337
-  end
-
-  config.after(:each) do |example|
-    binding.pry
   end
 end
