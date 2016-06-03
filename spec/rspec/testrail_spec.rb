@@ -37,26 +37,20 @@ describe RSpec::Testrail do
   end
 
   describe '.process', testrail_id: 123 do
-    before(:each) { WebMock.reset! }
-
-    it 'gets all runs' do |example|
+    before(:each) do |example|
       stub_get_runs
       stub_update_run
       stub_add_result_for_case example.metadata[:testrail_id]
 
       RSpec::Testrail.process(example)
+    end
 
+    it 'gets all runs' do
       expect(WebMock).to have_requested(:get, "#{options[:url]}/index.php?/api/v2/get_runs/\
 #{options[:project_id]}").with(basic_auth: [options[:user], options[:password]])
     end
 
-    it 'gets run with specified name' do |example|
-      stub_get_runs
-      stub_update_run
-      stub_add_result_for_case example.metadata[:testrail_id]
-
-      RSpec::Testrail.process(example)
-
+    it 'gets run with specified name' do
       expect(WebMock).to have_requested(:post, "#{options[:url]}/index.php?/api/v2/update_run/\
 #{site_runs[0][:id]}")
         .with(basic_auth: [options[:user], options[:password]],
