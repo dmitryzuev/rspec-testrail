@@ -1,6 +1,6 @@
 # RSpec::Testrail
 
-[![Build Status](https://travis-ci.org/dmitryzuev/rspec-testrail.svg?branch=master)](https://travis-ci.org/dmitryzuev/rspec-testrail)
+[![Build Status](https://travis-ci.org/dmitryzuev/rspec-testrail.svg?branch=master)](https://travis-ci.org/dmitryzuev/rspec-testrail) [![Code Climate](https://codeclimate.com/github/dmitryzuev/rspec-testrail/badges/gpa.svg)](https://codeclimate.com/github/dmitryzuev/rspec-testrail) [![Test Coverage](https://codeclimate.com/github/dmitryzuev/rspec-testrail/badges/coverage.svg)](https://codeclimate.com/github/dmitryzuev/rspec-testrail/coverage)
 
 ## Installation
 
