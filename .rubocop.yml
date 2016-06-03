@@ -1,0 +1,24 @@
+AllCops:
+  TargetRubyVersion: 2.3
+
+  Exclude:
+    - 'bin/**/*'
+    - 'tmp/**/*'
+    - 'test/test_helper.rb'
+    - 'spec/spec_helper.rb'
+    - 'spec/rails_helper.rb'
+
+Metrics/LineLength:
+  Max: 100
+
+Metrics/MethodLength:
+  Max: 20
+
+Style/BlockComments:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Documentation:
+  Enabled: false
