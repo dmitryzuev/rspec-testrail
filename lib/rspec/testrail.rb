@@ -16,15 +16,10 @@ module RSpec
           run_name: hash[:run_name],
           run_description: hash[:run_description]
         }
-        client
       end
 
       def client
         @client ||= Client.new(@options[:url], @options[:user], @options[:password])
-      end
-
-      def reset_client
-        @client = nil
       end
 
       def process(example)
@@ -38,6 +33,13 @@ module RSpec
         client.send_post("add_result_for_case/#{testrun['id']}/#{example.metadata[:testrail_id]}",
                          status_id: status,
                          comment: message)
+      end
+
+      def reset
+        @options = nil
+        @client = nil
+        @testrun = nil
+        @testruns = nil
       end
 
       protected
