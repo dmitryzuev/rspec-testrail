@@ -1,5 +1,6 @@
 # RSpec::Testrail
 
+[![Build Status](https://travis-ci.org/dmitryzuev/rspec-testrail.svg?branch=master)](https://travis-ci.org/dmitryzuev/rspec-testrail)
 
 ## Installation
 
