@@ -13,8 +13,8 @@ module RSpec
           password: hash[:password],
           project_id: hash[:project_id],
           suite_id: hash[:suite_id],
-          git_revision: `git rev-parse HEAD`.strip,
-          git_branch: `git rev-parse --abbrev-ref HEAD`.strip
+          run_name: hash[:run_name],
+          run_description: hash[:run_description]
         }
         client
       end
@@ -47,11 +47,11 @@ module RSpec
           if testruns.empty?
             client.send_post("add_run/#{@options[:project_id]}",
                              suite_id: @options[:suite_id],
-                             name: "Test run for #{@options[:git_branch]}",
-                             description: "Revision: #{@options[:git_revision]}")
+                             name: @options[:run_name],
+                             description: @options[:run_description])
           else
             client.send_post("update_run/#{testruns[0]['id']}",
-                             description: "Revision: #{@options[:git_revision]}")
+                             description: @options[:run_description])
           end
       end
 
@@ -59,7 +59,7 @@ module RSpec
         @testruns ||= client.send_get("get_runs/#{@options[:project_id]}")
                             .select do |run|
                               run['suite_id'] == @options[:suite_id].to_i && \
-                                run['name'].include?(@options[:git_branch])
+                                run['name'].include?(@options[:run_name])
                             end
       end
     end
