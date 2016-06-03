@@ -1,5 +1,6 @@
 # RSpec::Testrail
 
+[![Build Status](https://travis-ci.org/dmitryzuev/rspec-testrail.svg?branch=master)](https://travis-ci.org/dmitryzuev/rspec-testrail) [![Code Climate](https://codeclimate.com/github/dmitryzuev/rspec-testrail/badges/gpa.svg)](https://codeclimate.com/github/dmitryzuev/rspec-testrail) [![Test Coverage](https://codeclimate.com/github/dmitryzuev/rspec-testrail/badges/coverage.svg)](https://codeclimate.com/github/dmitryzuev/rspec-testrail/coverage)
 
 ## Installation
 
@@ -29,11 +30,13 @@ RSpec.configure do |config|
   config.before :all do
     # Uncomment if you are using gem `webmock`
     # WebMock.allow_net_connect!
-    RSpec::Testrail.init url: 'http://test.site',
-                         user: 'test@test.site',
+    RSpec::Testrail.init url: 'http://testrail.site',
+                         user: 'test@testrail.site',
                          password: ENV.fetch('TESTRAIL_PASSWORD', '12345678'),
                          project_id: 228,
-                         suite_id: 1337
+                         suite_id: 1337,
+                         run_name: `git rev-parse --abbrev-ref HEAD`.strip,
+                         run_description: `git rev-parse HEAD`.strip
   end
 
   config.after :example, testrail_id: proc { |value| !value.nil? } do |example|
