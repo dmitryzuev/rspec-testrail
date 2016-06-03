@@ -24,9 +24,11 @@ module RSpec
       attr_accessor :user
       attr_accessor :password
 
-      def initialize(base_url)
+      def initialize(base_url, user, password)
         base_url += '/' unless base_url =~ %r{/\/$/}
         @url = base_url + 'index.php?/api/v2/'
+        @user = user
+        @password = password
       end
 
       #

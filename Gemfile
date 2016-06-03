@@ -4,3 +4,5 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'rubocop'
+gem 'awesome_print'
+gem 'pry'

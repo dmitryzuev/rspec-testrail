@@ -25,10 +25,20 @@ Or install it yourself as:
 require 'rspec/testrail'
 
 RSpec.configure do |config|
-  config.include RSpec::Testrail::Configuration
-  config.testrail.url = 'http://testrail.dev/'
-  config.testrail.user = 'tester@testrail.dev'
-  config.testrail.password = ENV.fetch('TESTRAIL_PASSWORD', '')
+
+  config.before(:all) do
+    # Uncomment if you are using gem `webmock`
+    # WebMock.allow_net_connect!
+    RSpec::Testrail.init url: 'http://test.site',
+                         user: 'test@test.site',
+                         password: ENV.fetch('TESTRAIL_PASSWORD', '12345678')
+  end
+
+  config.after(:example), testrail_id: proc { |value| !value.nil? } do |example|
+    # Uncomment if you are using gem `webmock`
+    # WebMock.allow_net_connect!
+    RSpec::Testrail.process(example)
+  end
 end
 ```
 
